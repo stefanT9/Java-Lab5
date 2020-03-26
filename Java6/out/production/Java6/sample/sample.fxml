@@ -1,0 +1,49 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.canvas.Canvas?>
+<?import sample.ConfigurationPanel?>
+<?import sample.ControlPannel?>
+<?import sample.ShapesPanel?>
+<?import javafx.scene.shape.Box?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+
+<BorderPane fx:id="mainLayoutBorderPane" fx:controller="sample.Controller"
+            xmlns:fx="http://javafx.com/fxml">
+    <center>
+        <Canvas fx:id="canvas">
+            <width>500</width>
+            <height>500</height>
+        </Canvas>
+    </center>
+
+
+    <top>
+        <ConfigurationPanel fx:id="configurationPanel">
+        <Label text="Radius"/>
+        <TextField fx:id="radiusTextField"/>
+    </ConfigurationPanel>
+    </top>
+
+    <bottom>
+        <ControlPannel fx:id="controlPanel">
+            <Button fx:id="saveButton">Save</Button>
+            <Button fx:id="loadButton">Load</Button>
+            <Button fx:id="clearButton">Clear</Button>
+            <Button fx:id="exitButton">Exit</Button>
+        </ControlPannel>
+    </bottom>
+
+    <left>
+        <ShapesPanel fx:id="shapesPanel">
+            <Button fx:id="selectCircleButton">Circle</Button>
+            <Button fx:id="selectSquareButton">Square</Button>
+            <Button fx:id="selectRectangleButton">Rectangle</Button>
+        </ShapesPanel>
+    </left>
+
+</BorderPane>
