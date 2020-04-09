@@ -29,12 +29,13 @@ public class ChartController implements IChartController{
         resultSet=statement.executeQuery("select max(id) from  lists");
         resultSet.next();
         int idx2=resultSet.getInt(1);
-        String sql =String.format("insert into charts values ('%d','%d')",idx1+1,idx2);
+
+        String sql =String.format("insert into charts values ('%d','%d')",idx1+1,idx2+1);
 
         statement.executeUpdate(sql);
         for(Integer id:albumIds)
         {
-            sql =String.format("insert into lists values ('%d','%d')",idx2,id);
+            sql =String.format("insert into lists values ('%d','%d')",idx2+1,id);
             statement.executeUpdate(sql);
         }
         statement.close();
@@ -62,16 +63,17 @@ public class ChartController implements IChartController{
     public List<Integer> getAllIds() {
         try {
             Statement statement = connection.createStatement();
-            String sql=String.format("select id from charts");
+            String sql=String.format("select id from charts;");
             ResultSet resultSet = statement.executeQuery(sql);
             List<Integer> idList=new LinkedList<>();
             resultSet.next();
 
-            while (resultSet.isAfterLast());
+            while (!resultSet.isAfterLast())
             {
                 idList.add(resultSet.getInt(1));
                 resultSet.next();
             }
+
             return idList;
         }
         catch (Exception ignored)

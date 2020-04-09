@@ -10,6 +10,15 @@ public class Artist {
         this.name=name;
     }
 
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "idx=" + idx +
+                ", country='" + country + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public int getIdx() {
         return idx;
     }
@@ -40,12 +49,4 @@ public class Artist {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "Artist{" +
-                "idx=" + idx +
-                ", country='" + country + '\'' +
-                ", name='" + name + '\'' +
-                '}';
-    }
 }

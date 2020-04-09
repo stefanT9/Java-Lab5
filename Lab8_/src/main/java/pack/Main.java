@@ -11,7 +11,9 @@ import Model.Artist;
 import Model.Chart;
 import com.github.javafaker.Faker;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,8 +33,39 @@ public class Main {
         }
         populate(context);
 
+        printTopArtists(context);
+    }
+
+    private static void printTopArtists(Context context) {
+        String sql="select a.name, count(a.name) " +
+                "from charts v_charts " +
+                "join lists v_list on v_charts.list_id = v_list.id " +
+                "join albums v_album on v_album.id=v_list.album_id " +
+                "join artists a on v_album.artist_id = a.id " +
+                "group by a.id " +
+                "order by 2 desc;";
+
+        try {
+            Statement statement=context.connection.createStatement();
+            ResultSet res = statement.executeQuery(sql);
+            res.next();
+            int head=10;
+            while (!res.isAfterLast() && head>=0)
+            {
+                head--;
+                String name=res.getString(1);
+                Integer appearances = res.getInt(2);
+                System.out.println(String.format("%s apare in %d charturi",name,appearances));
+                res.next();
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+
 
     }
+
     static public void populate(Context context)
     {
         IArtistController artistController=new ArtistsController(context);
@@ -51,7 +84,7 @@ public class Main {
         }
         System.out.println("artisti creat");
         List<Integer> artistsId=artistController.getAllIds();
-        System.out.println(artistsId);
+
         for(int i=0;i<1000;i++)
         {
             Integer artistId=artistsId.get(faker.number().numberBetween(0,artistsId.size()-1));
@@ -64,13 +97,13 @@ public class Main {
         }
         List<Integer> albumsId=albumController.getAllIds();
         System.out.println("albums created");
-        System.out.println(albumsId);
+
         for(int i=0;i<100;i++)
         {
             List<Integer> albumsIdList=new LinkedList<>();
-            for(int j=0;i<10;i++)
+            for(int j=0;j<10;j++)
             {
-                int albumIdx=faker.number().numberBetween(0,albumsId.size()-1);
+                int albumIdx=faker.number().numberBetween(0,albumsId.size()-1);;
                 albumsIdList.add(albumsId.get(albumIdx));
             }
             Chart chart=new Chart(albumsIdList);
@@ -81,6 +114,5 @@ public class Main {
             }
         }
         System.out.println("Charts created");
-        System.out.println(chartController.getAllIds());
     }
 }

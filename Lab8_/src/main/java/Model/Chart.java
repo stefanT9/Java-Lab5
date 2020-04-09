@@ -4,7 +4,6 @@ import java.util.List;
 
 public class Chart {
     int id;
-    List<Integer> album_ids;
 
     @Override
     public String toString() {
@@ -13,6 +12,8 @@ public class Chart {
                 ", album_ids=" + album_ids +
                 '}';
     }
+
+    List<Integer> album_ids;
 
     public int getId() {
         return id;
