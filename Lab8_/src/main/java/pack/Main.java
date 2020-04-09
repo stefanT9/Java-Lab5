@@ -22,8 +22,8 @@ public class Main {
     public static void main(String[] args)
     {
         String url="jdbc:mysql://localhost:3306/testDB";
-        String username="stefan";
-        String password="sintaxaparola";
+        String username="user";
+        String password="parola";
 
         Context context=Context.getDbContext();
         try {
